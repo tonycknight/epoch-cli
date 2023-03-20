@@ -25,7 +25,7 @@ namespace Epoch.Cli.Commands
                 var value = Values?.Join(" ")?.Trim();
 
                 if (string.IsNullOrWhiteSpace(value))
-                {              
+                {
                     app.ExtendedHelpText = await app.GetPackageInfoAsync();
                     app.ShowHelp();
                     return false.ToReturnCode();

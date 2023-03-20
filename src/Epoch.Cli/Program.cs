@@ -16,9 +16,9 @@ namespace Epoch.Cli
             using var app = new CommandLineApplication<EpochCommand>()
             {
                 UnrecognizedArgumentHandling = UnrecognizedArgumentHandling.Throw,
-                MakeSuggestionsInErrorMessage = true,                
+                MakeSuggestionsInErrorMessage = true,
             };
-            
+
             app.Conventions
                 .UseDefaultConventions()
                 .UseConstructorInjection(ProgramBootstrap.CreateServiceCollection());
