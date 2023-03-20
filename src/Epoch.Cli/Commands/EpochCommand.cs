@@ -26,9 +26,7 @@ namespace Epoch.Cli.Commands
 
                 if (string.IsNullOrWhiteSpace(value))
                 {
-
                     app.ExtendedHelpText = await GetPackageInfoAsync(app);
-
                     app.ShowHelp();
                     return false.ToReturnCode();
                 }

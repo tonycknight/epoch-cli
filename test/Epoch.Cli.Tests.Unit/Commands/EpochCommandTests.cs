@@ -3,8 +3,8 @@ using FluentAssertions;
 using NSubstitute;
 using Spectre.Console;
 using Epoch.Cli.Commands;
+using McMaster.Extensions.CommandLineUtils;
 using Xunit;
-
 
 namespace Epoch.Cli.Tests.Unit.Commands
 {
@@ -22,7 +22,7 @@ namespace Epoch.Cli.Tests.Unit.Commands
                 Values = new[] { value }
             };
 
-            var rc = await cmd.OnExecuteAsync(null);
+            var rc = await cmd.OnExecuteAsync(new CommandLineApplication());
 
             rc.Should().Be(1);
             console.Received(1).Write(Arg.Any<Markup>());
@@ -39,7 +39,7 @@ namespace Epoch.Cli.Tests.Unit.Commands
                 Values = new[] { 1234.ToString() },
             };
 
-            var rc = await cmd.OnExecuteAsync(null);
+            var rc = await cmd.OnExecuteAsync(new CommandLineApplication());
 
             rc.Should().Be(0);
             console.Received(1).Write(Arg.Any<Text>());
@@ -59,7 +59,7 @@ namespace Epoch.Cli.Tests.Unit.Commands
                 Values = new[] { value },
             };
 
-            var rc = await cmd.OnExecuteAsync(null);
+            var rc = await cmd.OnExecuteAsync(new CommandLineApplication());
 
             rc.Should().Be(1);
             console.Received(1).Write(Arg.Any<Markup>());
@@ -79,7 +79,7 @@ namespace Epoch.Cli.Tests.Unit.Commands
                 Values = values,
             };
 
-            var rc = await cmd.OnExecuteAsync(null);
+            var rc = await cmd.OnExecuteAsync(new CommandLineApplication());
 
             rc.Should().Be(0);
             console.Received(1).Write(Arg.Any<Text>());
@@ -98,7 +98,7 @@ namespace Epoch.Cli.Tests.Unit.Commands
                 Values = new[] { value },
             };
 
-            var rc = await cmd.OnExecuteAsync(null);
+            var rc = await cmd.OnExecuteAsync(new CommandLineApplication());
 
             rc.Should().Be(1);
             console.Received(1).Write(Arg.Any<Markup>());
