@@ -18,7 +18,7 @@ namespace Epoch.Cli.Commands
         public IList<string>? Values { get; set; }
 
 
-        public async Task<int> OnExecuteAsync(CommandLineApplication app)
+        public int OnExecute(CommandLineApplication app)
         {
             try
             {
@@ -26,7 +26,6 @@ namespace Epoch.Cli.Commands
 
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    app.ExtendedHelpText = await app.GetPackageInfoAsync();
                     app.ShowHelp();
                     return false.ToReturnCode();
                 }
