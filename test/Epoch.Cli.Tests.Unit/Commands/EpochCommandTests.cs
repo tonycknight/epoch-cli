@@ -25,7 +25,7 @@ namespace Epoch.Cli.Tests.Unit.Commands
             var rc = await cmd.OnExecuteAsync(new CommandLineApplication());
 
             rc.Should().Be(1);
-            console.Received(1).Write(Arg.Any<Markup>());
+            console.Received(0).Write(Arg.Any<Markup>());
             console.Received(0).Write(Arg.Any<Text>());
         }
 
@@ -62,7 +62,7 @@ namespace Epoch.Cli.Tests.Unit.Commands
             var rc = await cmd.OnExecuteAsync(new CommandLineApplication());
 
             rc.Should().Be(1);
-            console.Received(1).Write(Arg.Any<Markup>());
+            console.Received(0).Write(Arg.Any<Markup>());
         }
 
         [Theory]

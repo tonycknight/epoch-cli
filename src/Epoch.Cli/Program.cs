@@ -3,6 +3,7 @@ using Epoch.Cli.Commands;
 using Tk.Extensions;
 using System.Diagnostics.CodeAnalysis;
 using Spectre.Console;
+using McMaster.Extensions.CommandLineUtils.HelpText;
 
 namespace Epoch.Cli
 {
@@ -10,17 +11,18 @@ namespace Epoch.Cli
     [Command(Name = "epoch", Description = "Epoch date tools")]
     public class Program
     {
-        public static int Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
             using var app = new CommandLineApplication<EpochCommand>()
             {
                 UnrecognizedArgumentHandling = UnrecognizedArgumentHandling.Throw,
-                MakeSuggestionsInErrorMessage = true,
+                MakeSuggestionsInErrorMessage = true,                
             };
-
+            
             app.Conventions
                 .UseDefaultConventions()
                 .UseConstructorInjection(ProgramBootstrap.CreateServiceCollection());
+            app.ExtendedHelpText = await app.GetPackageInfoAsync();
 
             try
             {

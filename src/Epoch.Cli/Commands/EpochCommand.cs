@@ -25,8 +25,8 @@ namespace Epoch.Cli.Commands
                 var value = Values?.Join(" ")?.Trim();
 
                 if (string.IsNullOrWhiteSpace(value))
-                {
-                    app.ExtendedHelpText = await GetPackageInfoAsync(app);
+                {              
+                    app.ExtendedHelpText = await app.GetPackageInfoAsync();
                     app.ShowHelp();
                     return false.ToReturnCode();
                 }
@@ -56,27 +56,6 @@ namespace Epoch.Cli.Commands
 
             _console.Write(new Markup("[red]Invalid value.[/]"));
             return false.ToReturnCode();
-        }
-
-        public async Task<string> GetPackageInfoAsync(CommandLineApplication app)
-        {
-            var currentVersion = ProgramBootstrap.GetAppVersion();
-            var nugetVersion = await ProgramBootstrap.GetCurrentNugetVersion();
-            var descLines = new List<string>()
-            {
-                Crayon.Output.Bright.Cyan(app.Parent?.Name),
-                Crayon.Output.Bright.Yellow($"Version {currentVersion} beta"),
-                Crayon.Output.Bright.Yellow($"Repo: https://github.com/tonycknight/epoch-cli"),
-            };
-
-            if (nugetVersion != null && currentVersion != nugetVersion)
-            {
-                descLines.Add(Crayon.Output.Bright.Magenta($"An upgrade is available: {nugetVersion}"));
-            }
-
-            var desc = descLines.Join(Environment.NewLine);
-
-            return desc;
         }
     }
 }

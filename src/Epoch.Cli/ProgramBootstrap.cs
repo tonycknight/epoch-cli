@@ -8,7 +8,6 @@ namespace Epoch.Cli
     {
         public static IServiceProvider CreateServiceCollection() =>
            new ServiceCollection()
-                .AddSingleton<IRng, Rng>()
                 .AddSingleton<IAnsiConsole>(sp => AnsiConsole.Create(new AnsiConsoleSettings() { ColorSystem = ColorSystemSupport.TrueColor }))
                 .AddSingleton<Nuget.INugetClient, Nuget.NugetClient>()
                 .BuildServiceProvider();
