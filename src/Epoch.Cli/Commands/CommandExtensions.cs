@@ -12,7 +12,7 @@ namespace Epoch.Cli.Commands
 
         public static async Task<string> GetPackageInfoAsync(this CommandLineApplication app)
         {
-            var currentVersion = ProgramBootstrap.GetAppVersion();            
+            var currentVersion = ProgramBootstrap.GetAppVersion();
             var descLines = new List<string>()
             {
                 Crayon.Output.Bright.Cyan(app.Parent?.Name),
