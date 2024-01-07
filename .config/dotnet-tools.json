@@ -21,9 +21,15 @@
       ]
     },
     "dotnet-stryker": {
-      "version": "3.4.0",
+      "version": "3.13.1",
       "commands": [
         "dotnet-stryker"
+      ]
+    },
+    "pkgchk-cli": {
+      "version": "0.1.152",
+      "commands": [
+        "pkgchk"
       ]
     }
   }

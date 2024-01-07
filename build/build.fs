@@ -6,7 +6,7 @@ open Fake.Core.TargetOperators
 
 let packageDir = "./package"
 let publishDir = "./publish"
-let mainSolution = "./Tk.Extensions.sln"
+let mainSolution = "./epoch-cli.sln"
 let strykerDir = "./StrykerOutput"
 
 let runNumber =
@@ -89,7 +89,7 @@ let packOptions = fun (opts: DotNet.PackOptions) ->
                                     MSBuildParams = { opts.MSBuildParams with Properties = (packBuildParams opts.MSBuildParams.Properties |> assemblyInfoParams )};
                                     OutputPath = Some packageDir }
 
-let publishProjects = !! "src/**/Tk.Extensions.csproj" |> List.ofSeq
+let publishProjects = !! "src/**/Epoch.Cli.csproj" |> List.ofSeq
 
 
 
@@ -128,7 +128,7 @@ let initTargets () =
     Target.create "Unit Tests" (fun _ -> !! "test/**/*.csproj" |> Seq.iter (DotNet.test testOptions))
 
     Target.create "Stryker" (fun _ ->
-        !! "test/*.Tests/*.csproj"
+        !! "test/*.Tests.*/*.csproj"
         |> Seq.iter (fun p ->   let args = sprintf "-tp %s -b 20 -m \"!**/Waffle/**\" --reporter \"json\" --reporter \"html\"" p
                                 let result = DotNet.exec id "dotnet-stryker" args
                                 if not result.OK then failwithf "Stryker failed!"
