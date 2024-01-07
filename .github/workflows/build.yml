@@ -59,7 +59,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/test/Epoch.Cli.Tests.Unit/TestResults/coverage.info
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_coverage: 50
+          minimum_coverage: 63
           fail_below_threshold: true
           show_line: true
           show_branch: true
