@@ -19,7 +19,7 @@ namespace Epoch.Cli.Tests.Unit.Commands
             var console = Substitute.For<IAnsiConsole>();
             var cmd = new EpochCommand(console)
             {
-                Values = new[] { value }
+                Values = new[] { value! }
             };
 
             var rc = cmd.OnExecute(new CommandLineApplication());
@@ -56,7 +56,7 @@ namespace Epoch.Cli.Tests.Unit.Commands
 
             var cmd = new EpochCommand(console)
             {
-                Values = new[] { value },
+                Values = new[] { value! },
             };
 
             var rc = cmd.OnExecute(new CommandLineApplication());
