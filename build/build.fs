@@ -8,7 +8,6 @@ let packageDir = "./package"
 let publishDir = "./publish"
 let mainSolution = "./Tk.Extensions.sln"
 let strykerDir = "./StrykerOutput"
-let benchmarksDir = "./BenchmarkDotNet.Artifacts"
 
 let runNumber =
     (match Fake.BuildServer.GitHubActions.Environment.CI false with
@@ -109,10 +108,7 @@ let initTargets () =
         
         !! strykerDir
         |> Shell.cleanDirs
-
-        !! benchmarksDir
-        |> Shell.cleanDirs
-
+        
         DotNet.exec id "clean" "" |> ignore
         )
 
@@ -174,15 +170,7 @@ let initTargets () =
             Trace.log "No files need formatting"
         else
             failwith "Error reformatting!")
-
-    Target.create "Benchmarks" (fun _ ->
-        let args = "-f * "
-        let result = DotNet.exec id "test/Tk.Extensions.Benchmarks/bin/Release/net8.0/Tk.Extensions.Benchmarks.dll" args
-        
-        if not result.OK then failwithf "Benchmarks failed!"
-                                
-    )
-
+    
     Target.create "Echo variables" (fun _ -> version |> sprintf "Build number: %s" |> Trace.traceImportant)
 
     Target.create "Build" ignore
@@ -203,8 +191,6 @@ let initTargets () =
     "Restore" ==> "SCA" ==>! "All"
 
     "Restore" ==> "Check Style Rules" ==>! "All"
-
-    "Clean" ==> "Restore" ==> "Compile" ==> "Benchmarks" ==>! "All"
 
     "Build" ==>! "All"
 
