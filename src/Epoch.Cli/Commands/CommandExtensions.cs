@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using McMaster.Extensions.CommandLineUtils;
 using Tk.Extensions;
+using Tk.Nuget;
 
 namespace Epoch.Cli.Commands
 {
@@ -11,8 +12,7 @@ namespace Epoch.Cli.Commands
 
         public static async Task<string> GetPackageInfoAsync(this CommandLineApplication app)
         {
-            var currentVersion = ProgramBootstrap.GetAppVersion();
-            var nugetVersion = await ProgramBootstrap.GetCurrentNugetVersion();
+            var currentVersion = ProgramBootstrap.GetAppVersion();            
             var descLines = new List<string>()
             {
                 Crayon.Output.Bright.Cyan(app.Parent?.Name),
@@ -20,11 +20,14 @@ namespace Epoch.Cli.Commands
                 Crayon.Output.Bright.Yellow($"Repo: https://github.com/tonycknight/epoch-cli"),
             };
 
-            if (nugetVersion != null && currentVersion != nugetVersion)
+            if (currentVersion != null)
             {
-                descLines.Add(Crayon.Output.Bright.Magenta($"An upgrade is available: {nugetVersion}"));
+                var nugetVersion = await (new NugetClient()).GetUpgradeVersionAsync("epoch-cli", currentVersion);
+                if (nugetVersion != null)
+                {
+                    descLines.Add(Crayon.Output.Bright.Magenta($"An upgrade is available: {nugetVersion}"));
+                }
             }
-
             var desc = descLines.Join(Environment.NewLine);
 
             return desc;

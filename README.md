@@ -3,7 +3,7 @@
 
 [![Build & Release](https://github.com/tonycknight/epoch-cli/actions/workflows/build.yml/badge.svg)](https://github.com/tonycknight/epoch-cli/actions/workflows/build.yml)
 
-![Nuget](https://img.shields.io/nuget/v/epoch-cli)
+[![Nuget](https://img.shields.io/nuget/v/epoch-cli)](https://www.nuget.org/packages/epoch-cli/)
 
 A `dotnet tool` for epoch times.
 
