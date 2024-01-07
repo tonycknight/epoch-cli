@@ -12,9 +12,9 @@ namespace Epoch.Cli.Tests.Unit.End2End
         [InlineData("1970-01-01T01:01:00")]
         [InlineData("2022-01-01T01:23:56")]
         [InlineData("2022-01-01", "01:23:56")]
-        public async Task Epoch_ReturnsOk(params string[] values)
+        public void Epoch_ReturnsOk(params string[] values)
         {
-            var rc = await Program.Main(new[] { "" }.Concat(values).ToArray());
+            var rc = Program.Main(new[] { "" }.Concat(values).ToArray());
 
             rc.Should().Be(0);
         }
