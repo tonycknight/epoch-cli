@@ -7,7 +7,7 @@ nuget coverlet.msbuild
 nuget crayon 2.0.64
 nuget FluentAssertions
 nuget FsCheck.XUnit
-nuget FSharp.Core 6.0.3
+nuget FSharp.Core
 nuget FsUnit.Xunit
 nuget McMaster.Extensions.CommandLineUtils 4.0.1
 nuget Microsoft.Extensions.DependencyInjection
@@ -21,7 +21,6 @@ nuget System.Text.RegularExpressions 4.3.1
 nuget Tk.Extensions
 nuget xunit
 nuget xunit.runner.visualstudio
-nuget FSharp.Core
 nuget Fake.IO.FileSystem
 nuget Fake.Core.Target
 nuget Fake.Core.ReleaseNotes
