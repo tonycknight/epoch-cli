@@ -22,7 +22,8 @@ namespace Epoch.Cli
             app.Conventions
                 .UseDefaultConventions()
                 .UseConstructorInjection(ProgramBootstrap.CreateServiceCollection());
-            app.ExtendedHelpText = await app.GetPackageInfoAsync();
+            // TODO: slows down execution!!!
+            //app.ExtendedHelpText = await app.GetPackageInfoAsync();
 
             try
             {
