@@ -27,7 +27,7 @@ jobs:
         run: dotnet tool restore
               
       - name: Run build
-        run: dotnet run --project ./build/build.fsproj -c Release -t "Consolidate code coverage"
+        run: dotnet run --project ./build/build.fsproj -c Release -t "Tests"
 
       - name: Archive Test results
         uses: actions/upload-artifact@v3
