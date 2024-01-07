@@ -9,10 +9,12 @@ on:
 
 env:
   build-version-number: 0.1.${{ github.run_number }}  
-
-
+   
 jobs:
   sca:
+    uses: ./.github/workflows/sca.yml
+    
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,51 +22,28 @@ jobs:
 
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: "6.0.x"
-          
-      - name: dotnet tool restore
-        run: dotnet tool restore
-              
-      - name: Run SCA
-        run: dotnet fake run "build.fsx" -t "SCA"  
-      
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: "6.0.x"
-        
+                        
       - name: dotnet tool restore
         run: dotnet tool restore
               
       - name: Run build
-        run: dotnet fake run "build.fsx" -t "Consolidate code coverage"
-
-      - name: Archive tool nupkg
-        uses: actions/upload-artifact@v3
-        with:
-          name: epoch-cli.nupkg
-          path: ./package/epoch*.nupkg
+        run: dotnet run --project ./build/build.fsproj -c Release -t "Tests"
 
       - name: Archive Test results
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: tests.results
           path: |
             ./test/**/TestResults/*
-      
+            
       - name: Archive Code coverage
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: codecoverage
           path: ./publish/codecoverage/*.*
-
+                    
       - name: Unit test results
         uses: dorny/test-reporter@v1
         if: always()
@@ -76,6 +55,7 @@ jobs:
 
       - name: Code coverage results
         uses: 5monkeys/cobertura-action@master
+        if: always()
         with:
           path: ${{ github.workspace }}/test/Epoch.Cli.Tests.Unit/TestResults/coverage.info
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -87,10 +67,10 @@ jobs:
           show_class_names: true
           link_missing_lines: true
           report_name: code coverage results
-
+          
   codeql:
     uses: ./.github/workflows/codeql-analysis.yml
-  
+
   stryker:
     runs-on: ubuntu-latest
 
@@ -99,14 +79,12 @@ jobs:
 
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: "6.0.x"
-        
+                
       - name: dotnet tool restore
         run: dotnet tool restore
               
       - name: Run build
-        run: dotnet fake run "build.fsx" -t "Stryker"
+        run: dotnet run --project ./build/build.fsproj -c Release -t "Stryker"
 
       - name: Archive Stryker results
         uses: actions/upload-artifact@v3
@@ -115,35 +93,33 @@ jobs:
           name: stryker.results
           path: |
             ./StrykerOutput/**/reports/* 
-
-  nuget-release:
-    name: nuget release
+    
+  release-to-nuget:
+    name: release to nuget
     runs-on: ubuntu-latest
-    needs:   [ sca, build, codeql, stryker ]
-    #if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
+    needs:   [ tests, codeql, sca, stryker ]
     if: github.event_name == 'push'
-
+        
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: "6.0.x"
 
-      - name: Download package
-        uses: actions/download-artifact@v3
-        with:
-          name: epoch-cli.nupkg
-          path: ${{ github.workspace }}/artifacts
+      - name: dotnet tool restore
+        run: dotnet tool restore
+                    
+      - name: Run build
+        run: dotnet run --project ./build/build.fsproj -c Release -t "Build"
 
       - name: Push nuget package
-        run: dotnet nuget push "artifacts/*.nupkg"  --api-key ${{ secrets.NUGET_PAT }} --source "nuget.org"
+        if: github.event_name == 'push'
+        run: dotnet nuget push "package/*.nupkg"  --api-key ${{ secrets.NUGET_PAT }} --source "nuget.org"
 
-  gh-release:
-    name: gh release
+  create-gh-release:
+    name: create gh release
     runs-on: ubuntu-latest
-    needs: [ nuget-release ]    
+    needs: [ release-to-nuget ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:    
@@ -154,5 +130,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: v${{ env.build-version-number }}
-          prerelease: false
           generateReleaseNotes: true

@@ -14,12 +14,12 @@ namespace Epoch.Cli.Tests.Unit.Commands
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public void OnExecute_DefaultArgumnets_ReturnsError(string value)
+        public void OnExecute_DefaultArgumnets_ReturnsError(string? value)
         {
             var console = Substitute.For<IAnsiConsole>();
             var cmd = new EpochCommand(console)
             {
-                Values = new[] { value }
+                Values = new[] { value! }
             };
 
             var rc = cmd.OnExecute(new CommandLineApplication());
@@ -50,13 +50,13 @@ namespace Epoch.Cli.Tests.Unit.Commands
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public void OnExecute_InvalidIntegerPassed_ReturnsError(string value)
+        public void OnExecute_InvalidIntegerPassed_ReturnsError(string? value)
         {
             var console = Substitute.For<IAnsiConsole>();
 
             var cmd = new EpochCommand(console)
             {
-                Values = new[] { value },
+                Values = new[] { value! },
             };
 
             var rc = cmd.OnExecute(new CommandLineApplication());

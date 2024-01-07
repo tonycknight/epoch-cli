@@ -11,7 +11,7 @@ namespace Epoch.Cli
     [Command(Name = "epoch", Description = "Epoch date tools")]
     public class Program
     {
-        public static async Task<int> Main(string[] args)
+        public static int Main(string[] args)
         {
             using var app = new CommandLineApplication<EpochCommand>()
             {
@@ -22,8 +22,8 @@ namespace Epoch.Cli
             app.Conventions
                 .UseDefaultConventions()
                 .UseConstructorInjection(ProgramBootstrap.CreateServiceCollection());
-            app.ExtendedHelpText = await app.GetPackageInfoAsync();
-
+            app.ExtendedHelpText = app.GetPackageInfo();
+            
             try
             {
                 return app.Execute(args);
