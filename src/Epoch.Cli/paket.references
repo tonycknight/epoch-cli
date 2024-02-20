@@ -3,5 +3,4 @@ FSharp.Core
 crayon
 Microsoft.Extensions.DependencyInjection
 Tk.Extensions
-System.IdentityModel.Tokens.Jwt
 spectre.console

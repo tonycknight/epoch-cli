@@ -14,7 +14,6 @@ nuget Microsoft.Extensions.DependencyInjection
 nuget Microsoft.NET.Test.Sdk
 nuget nsubstitute
 nuget spectre.console
-nuget System.IdentityModel.Tokens.Jwt
 nuget System.Net.Http 4.3.4
 nuget System.Text.RegularExpressions 4.3.1
 nuget Tk.Extensions
