@@ -1,4 +1,4 @@
-name: SCA
+name: "SCA"
 
 on:
   workflow_dispatch:
@@ -11,20 +11,19 @@ on:
       token:
         required: false
   schedule:
-    - cron: '16 2 * * 4'
+    - cron: '1 0 * * 6'
 
 jobs:
   sca:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v3
-                
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        
       - name: dotnet SCA
         run: |
           dotnet tool restore
-          dotnet run --project ./build/build.fsproj -c Release -t SCA
-          
+          dotnet pkgchk -t
