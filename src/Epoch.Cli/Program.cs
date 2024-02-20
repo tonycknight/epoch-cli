@@ -23,7 +23,7 @@ namespace Epoch.Cli
                 .UseDefaultConventions()
                 .UseConstructorInjection(ProgramBootstrap.CreateServiceCollection());
             app.ExtendedHelpText = app.GetPackageInfo();
-            
+
             try
             {
                 return app.Execute(args);
