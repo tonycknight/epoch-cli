@@ -3,15 +3,9 @@
   "isRoot": true,
   "tools": {
     "dotnet-reportgenerator-globaltool": {
-      "version": "5.2.0",
+      "version": "5.2.1",
       "commands": [
         "reportgenerator"
-      ]
-    },
-    "fake-cli": {
-      "version": "6.0.0",
-      "commands": [
-        "fake"
       ]
     },
     "paket": {
@@ -27,7 +21,7 @@
       ]
     },
     "pkgchk-cli": {
-      "version": "0.1.152",
+      "version": "0.2.350",
       "commands": [
         "pkgchk"
       ]
