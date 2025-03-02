@@ -5,14 +5,14 @@
 
 [![Nuget](https://img.shields.io/nuget/v/epoch-cli)](https://www.nuget.org/packages/epoch-cli/)
 
-A `dotnet tool` for epoch times.
+A `dotnet tool` for epoch times: those numbers sometimes called "Unit timestamps", all dating from 1970-01-01.
 
 
 # Getting Started
 
 ## Dependenices
 
-You'll need the [.Net 6 runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) installed.
+You'll need the [.Net 8 runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) installed.
 
 ## Installation
 
