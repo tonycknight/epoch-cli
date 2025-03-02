@@ -24,9 +24,11 @@ jobs:
           dotnet-version: ${{ env.dotnet-version }}
           
       - name: Run SCA
-        run: |
-          dotnet tool restore
-          dotnet pkgchk -t
+        uses: tonycknight/pkgchk-action@v1.0.16
+        with:
+          deprecated: true
+          vulnerable:  true
+          transitives: true
 
   check-style:
     runs-on: ubuntu-latest
