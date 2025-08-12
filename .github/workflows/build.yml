@@ -182,7 +182,7 @@ jobs:
           dotnet-version: ${{ env.dotnet-version }}
 
       - name: Download package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: epoch-cli.nupkg
           path: ${{ github.workspace }}/artifacts
