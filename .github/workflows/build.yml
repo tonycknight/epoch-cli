@@ -30,7 +30,7 @@ jobs:
           dotnet-version: ${{ env.dotnet-version }}
           
       - name: Run SCA
-        uses: tonycknight/pkgchk-action@v1.0.22
+        uses: tonycknight/pkgchk-action@v1
         with:
           deprecated: true
           vulnerable:  true
