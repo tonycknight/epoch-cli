@@ -1,0 +1,12 @@
+{
+  "stryker-config": {
+    "concurrency": 16,
+    "mutation-level": "Standard",
+    "language-version": "latest",    
+    "coverage-analysis": "off",
+    "thresholds": {
+      "break": 10
+    },
+    "verbosity": "info"    
+  }
+}
