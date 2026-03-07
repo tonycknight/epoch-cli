@@ -3,6 +3,7 @@ using System.Linq;
 using FsCheck;
 using FsCheck.Xunit;
 using Epoch.Cli;
+using Spectre.Console;
 
 namespace Epoch.Cli.Tests.Unit
 {
