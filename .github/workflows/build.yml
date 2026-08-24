@@ -68,7 +68,7 @@ jobs:
         run: |
           dotnet tool restore
           dotnet restore
-          dotnet test -c Debug -- --coverage --coverage-output-format cobertura
+          dotnet test -c Debug -- --coverage --coverage-output-format cobertura --report-trx
 
       - name: Consolidate code coverage
         run: |
