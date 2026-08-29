@@ -73,20 +73,6 @@ jobs:
       - name: Consolidate code coverage
         run: |
           dotnet reportgenerator -reports:./TestResults/*.cobertura.xml -targetdir:./publish/codecoverage -reporttypes:Html
-  
-          
-      - name: Archive Test results
-        uses: actions/upload-artifact@v7
-        with:
-          name: tests.results
-          path: |
-            ./test/**/TestResults/*
-      
-      - name: Archive Code coverage
-        uses: actions/upload-artifact@v7
-        with:
-          name: codecoverage
-          path: ./publish/codecoverage/*.*
 
       - name: Unit test results
         uses: dorny/test-reporter@v3
